@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Do you need a PA, EA, VA or an operations manager?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F3F6F8;--card:#FFFFFF;--ink:#0F2A43;--mute:#51657A;--line:#D5DFE8;--accent:#0E7C7B;--accent-ink:#FFFFFF;--hi:#F2B134;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0C1A28;--card:#132638;--ink:#EAF1F7;--mute:#9DB1C4;--line:#27405A;--accent:#3FC1BE;--accent-ink:#0C1A28;--hi:#F2B134}}
+:root[data-theme="dark"]{--bg:#0C1A28;--card:#132638;--ink:#EAF1F7;--mute:#9DB1C4;--line:#27405A;--accent:#3FC1BE;--accent-ink:#0C1A28;--hi:#F2B134}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:18px;line-height:1.5}
+main{max-width:620px;margin:0 auto;padding:28px 20px 48px}
+h1,h2{font-family:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;line-height:1.12;margin:0}
+h1{font-size:clamp(30px,8vw,42px);font-weight:800}
+h2{font-size:clamp(23px,6vw,29px);font-weight:600}
+p{margin:0}
+.lede{color:var(--mute);margin:14px 0 26px;max-width:46ch}
+.btn{font:inherit;font-weight:600;border:0;border-radius:12px;padding:15px 22px;cursor:pointer;background:var(--accent);color:var(--accent-ink);text-decoration:none;display:inline-block;text-align:center}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.btn:focus-visible,.opt:focus-visible{outline:3px solid var(--hi);outline-offset:2px}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-bottom:8px}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.count{color:var(--mute);font-size:15px;margin-bottom:22px}
+.opts{display:grid;gap:12px;margin-top:22px}
+.opt{font:inherit;text-align:left;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:16px 18px;cursor:pointer;line-height:1.35;transition:border-color .15s,transform .15s}
+.opt:hover{border-color:var(--accent)}
+.opt:active{transform:scale(.985)}
+.back{background:none;border:0;color:var(--mute);font:inherit;padding:18px 0 0;cursor:pointer;text-decoration:underline}
+.result-tag{color:var(--mute);margin-bottom:8px}
+.role{background:var(--card);border:2px solid var(--line);border-left:8px solid var(--hi);border-radius:14px;padding:20px;margin:20px 0}
+.role b{display:block;font-family:"Bricolage Grotesque","Segoe UI",sans-serif;font-size:22px;margin-bottom:6px}
+.also{color:var(--mute);margin:0 0 20px}
+.rows{display:grid;gap:10px;margin:22px 0}
+.row{display:grid;grid-template-columns:150px 1fr 28px;gap:10px;align-items:center;font-size:15px}
+.row span.t{height:10px;background:var(--line);border-radius:5px;overflow:hidden}
+.row span.t i{display:block;height:100%;background:var(--accent)}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
+.foot{margin-top:36px;padding-top:18px;border-top:1px solid var(--line);color:var(--mute);font-size:15px}
+.foot a{color:var(--accent)}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (max-width:420px){.row{grid-template-columns:110px 1fr 24px}}
+</style>
+</head>
+<body>
+<main>
+
+<section id="start">
+  <h1>Do you need a PA, an EA, a VA or an operations manager?</h1>
+  <p class="lede">Seven quick questions. Tap the answer that sounds most like you and find out what kind of support fits your work.</p>
+  <button class="btn" id="go">Start the quiz</button>
+</section>
+
+<section id="quiz" hidden>
+  <div class="bar"><i id="fill"></i></div>
+  <p class="count" id="count"></p>
+  <h2 id="q"></h2>
+  <div class="opts" id="opts"></div>
+  <button class="back" id="back">Previous question</button>
+</section>
+
+<section id="result" hidden>
+  <p class="result-tag">Your best fit is</p>
+  <h1 id="rtitle"></h1>
+  <div class="role"><b id="rline"></b><p id="rbody"></p></div>
+  <p class="also" id="ralso"></p>
+  <div class="rows" id="rows"></div>
+  <div class="actions">
+    <a class="btn" id="cta" href="https://calendly.com/jayclement657/discovery-chat" target="_blank" rel="noopener">Book a discovery chat</a>
+    <button class="btn ghost" id="share">Share this quiz</button>
+    <button class="btn ghost" id="again">Retake</button>
+  </div>
+</section>
+
+<p class="foot">Made by Juliet Murphy, Virtual Assistant and Operations professional. <a href="https://calendly.com/jayclement657/discovery-chat" target="_blank" rel="noopener">Book a discovery chat or call</a></p>
+</main>
+
+<script>
+var R={
+PA:{n:"Personal Assistant",line:"You need support for you and your day.",body:"Your time goes on errands, bookings, appointments and personal admin. A personal assistant takes the daily load off your plate so you can focus on the work only you can do.",first:"Start by listing the five personal tasks you repeat every week."},
+EA:{n:"Executive Assistant",line:"You need someone who runs your calendar, inbox and follow-ups.",body:"Your work needs filtering, preparing and anticipating. An executive assistant guards your time, prepares your meetings, handles confidential matters and thinks one step ahead of you.",first:"Start by writing down the decisions and messages that should never reach you."},
+VA:{n:"Virtual Assistant",line:"You need flexible, task-based help you can delegate remotely.",body:"You know what you want done, you just don’t have the hours. A virtual assistant takes defined, repeatable tasks like research, data entry, scheduling, social posts and invoicing, without the cost of a full-time hire.",first:"Start by picking three tasks you could hand over with a short checklist."},
+OPS:{n:"Operations Manager",line:"You need someone to fix the system, not just your schedule.",body:"The real problem is structure or people. Work slips when you step away, processes live in your head and the team has no clear owner for results. An assistant won’t fix that. An operations person builds the systems, tracks the work and keeps the team delivering.",first:"Start by writing down the three things that break when you’re away."}
+};
+var Q=[
+{q:"What eats most of your week?",o:[["PA","Errands, bookings and personal admin"],["EA","My inbox, calendar and meeting follow-ups"],["VA","Repeat tasks like research, data entry and posting"],["OPS","Chasing the team and fixing things that slip"]]},
+{q:"What would you hand off first?",o:[["PA","Travel plans, appointments and life admin"],["EA","Screening emails, calls and requests"],["VA","A list of small tasks with clear steps"],["OPS","Tracking deadlines, vendors and staff output"]]},
+{q:"Which word describes your problem best?",o:[["PA","Busy"],["EA","Overloaded"],["VA","Short on hours"],["OPS","Disorganised, or the team isn’t delivering"]]},
+{q:"What happens when you’re away for a week?",o:[["PA","My personal life piles up"],["EA","Decisions and messages stack up waiting for me"],["VA","Routine tasks simply don’t get done"],["OPS","Things stall or go wrong without me"]]},
+{q:"How would you prefer to delegate?",o:[["PA","Tell them what I need each day"],["EA","Share context once and let them anticipate"],["VA","Send a task with instructions"],["OPS","Give someone ownership of the results"]]},
+{q:"How much trust and access are you ready to give?",o:[["PA","My personal calendar, bookings and errands"],["EA","My inbox, confidential files and decisions"],["VA","Limited access to specific tools"],["OPS","Visibility across the team, budget and processes"]]},
+{q:"What does success look like in three months?",o:[["PA","My days run smoothly without me managing them"],["EA","I only deal with what truly needs me"],["VA","My to-do list is shrinking"],["OPS","The business runs on systems, not on me"]]}
+];
+var i=0,A=[],$=function(x){return document.getElementById(x)};
+function show(id){["start","quiz","result"].forEach(function(s){$(s).hidden=s!==id});window.scrollTo(0,0)}
+function ask(){
+  var c=Q[i];
+  $("count").textContent="Question "+(i+1)+" of "+Q.length;
+  $("fill").style.width=(i/Q.length*100)+"%";
+  $("q").textContent=c.q;
+  $("opts").innerHTML="";
+  c.o.forEach(function(o){
+    var b=document.createElement("button");b.className="opt";b.type="button";b.textContent=o[1];
+    b.onclick=function(){A[i]=o[0];if(i<Q.length-1){i++;ask()}else{done()}};
+    $("opts").appendChild(b)});
+  $("back").hidden=i===0;
+}
+function done(){
+  var s={PA:0,EA:0,VA:0,OPS:0};
+  A.forEach(function(k){s[k]++});
+  var order=["OPS","EA","VA","PA"];
+  var rank=order.slice().sort(function(a,b){return s[b]-s[a]});
+  var top=rank[0],sec=rank[1];
+  $("rtitle").textContent=R[top].n;
+  $("rline").textContent=R[top].line;
+  $("rbody").textContent=R[top].body+" "+R[top].first;
+  $("ralso").textContent=s[sec]>=2?"You also scored high for "+R[sec].n+". Many people start with one role and add the other as they grow.":"";
+  $("rows").innerHTML="";
+  rank.forEach(function(k){
+    var d=document.createElement("div");d.className="row";
+    d.innerHTML='<span>'+R[k].n+'</span><span class="t"><i style="width:'+(s[k]/Q.length*100)+'%"></i></span><span>'+s[k]+'</span>';
+    $("rows").appendChild(d)});
+  $("fill").style.width="100%";
+  show("result");
+}
+$("go").onclick=function(){i=0;A=[];show("quiz");ask()};
+$("back").onclick=function(){if(i>0){i--;ask()}};
+$("again").onclick=function(){i=0;A=[];show("start")};
+$("share").onclick=function(){
+  var u="";try{u=window.top.location.href}catch(e){}
+  if(!u){try{u=document.referrer||location.href}catch(e){u=""}}
+  var t="Do you need a PA, EA, VA or an operations manager? Take the quiz.";
+  try{if(navigator.share){navigator.share({title:t,url:u});return}}catch(e){}
+  try{navigator.clipboard.writeText(u);$("share").textContent="Link copied"}catch(e){$("share").textContent="Copy the page link"}
+};
+</script>
+</body>
+</html>
